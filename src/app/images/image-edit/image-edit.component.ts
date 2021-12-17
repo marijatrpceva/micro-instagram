@@ -83,8 +83,8 @@ export class ImageEditComponent implements OnInit, OnDestroy {
           this.imageService.updateImage(i) //put service
             .subscribe({
               next: () => {
-                console.log(this.imageForm.value)
-                console.log(this.imageForm.status)
+                console.log(this.imageForm.value);
+                console.log(this.imageForm.status);
                 this.onSaveComplete();
               },
               error: err => this.errorMessage = err

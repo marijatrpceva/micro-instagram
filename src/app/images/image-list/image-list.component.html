@@ -1,35 +1,16 @@
 <div class="row  ">
-  <div class="col-md-3" *ngFor="let img of images">
-      <div class="card" style="width: 13rem; margin-top: 5em; text-align: center;">
-        <a [routerLink] = "['/images',img.id]"><img [title]='img.id' class="card-img-top" src={{img.thumbnailUrl}} alt="Card image cap">
-        </a>
-          <div class="card-body">
-          <h5 class="card-title">{{img.title | slice:0:10}}</h5>
+  <div class="col-md-3 d-flex align-items-stretch" *ngFor="let img of images | paginate: { itemsPerPage: 28, currentPage: page}">
+      <div class="card " style="width: 13rem; margin-top: 5em; text-align: center;">
+        <a [routerLink] = "['/images',img.id]"><img [title]='img.id' class="card-img-top" src={{img.thumbnailUrl}} alt="Card image cap"></a>
+          <div class="card-body d-flex flex-column">
+          <h6 class="card-title ellipses">{{img.title }}</h6>
           <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-          <button type="button" class="btn btn-outline-info"
-          [routerLink] = "['/images', img.id, 'edit']">Edit</button>
-        </div>
+          <button type="button" class="btn btn-outline-info mt-auto"
+          (click) ="selectImg(img); openModal()"
+          >Edit</button>
+      </div>
     </div>
   </div>
+  <pagination-controls class="text-center mb-5 mt-5" (pageChange)="page = $event"></pagination-controls>
+
 </div>
-
-
-<!-- <div class='card'>
-    <div class="row">
-        <div class="col-md-3" *ngFor="let img of images">
-
-            <div class="col-sm-3">
-                <div class="card" style="width: 120px; margin-top: 5em">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                        <h6 class="card-title">{{img.id}}</h6>
-                        <p class="card-text">Some text</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-</div> -->

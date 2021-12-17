@@ -48,22 +48,22 @@
           </span>
         </div> <br>
         <div class="form-group row">
-          <div class="col-md-6">
-            <button class="btn btn-primary btn-space mr-1"
+          <div class="col-md-12">
+            <button class="btn btn-outline-primary me-1"
                     type="submit"
                     [disabled] = "!imageForm.valid">
               Save
             </button>
-            <button class="btn btn-outline-secondary mr-1"
+            <button class="btn btn-outline-secondary me-1 float-end"
                     type="button"
                     [routerLink]="['/images']">
               Cancel
             </button>
-            <button class="btn btn-outline-warning"
+            <!-- <button class="btn btn-outline-warning float-end"
                     type="button"
                     (click) = "deleteImage()">
               Delete
-            </button>
+            </button> -->
           </div>
         </div>
       </form>

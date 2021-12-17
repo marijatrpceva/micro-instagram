@@ -8,7 +8,7 @@
             <div class="col-md-7">{{image.id}}</div>
         </div>
         <div class="row">
-            <div class="col-md-4"> Image albumId:</div>
+            <div class="col-md-4"> Image album Id:</div>
             <div class="col-md-7">{{image.albumId}}</div>
         </div>
         <div class="row">
@@ -17,12 +17,14 @@
         </div>
     </div>
     <div class='card-footer'>
-        <button class='btn btn-outline-dark' style='width:80px' (click)='onBack()'>
+        <button class='btn btn-outline-dark' (click)='onBack()'>
             <i class='fa fa-chevron-left'></i> Back
         </button>
-        <button class='btn btn-outline-info' style='width:80px; float: right'
+        <!-- <button class='btn btn-outline-info' style='width:80px; float: right'
             [routerLink]="['/images', image.id, 'edit']">
             Edit
-        </button>
+        </button> -->
+        <button class="btn btn btn-outline-info float-end" (click)="openModal()">Edit</button>
+        <!-- <app-edit-modal (imageEvent) = "addImage($event)"></app-edit-modal> -->
     </div>
 <div>

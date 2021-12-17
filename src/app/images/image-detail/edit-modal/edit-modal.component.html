@@ -1,0 +1,61 @@
+<div class="modal-header">
+    <h4 class="modal-title">Editing item with id: {{image.id}}</h4>
+</div>
+<div class="modal-body">
+    <div class="card-body">
+        <div class=" mx-auto">
+            <form novalidate (ngSubmit)="save()" [formGroup]="imageForm">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Image Title</label>
+                    <input #changeName type="text" class="form-control" id="exampleInputEmail1" formControlName="title"
+                        [ngClass]="{'is-invalid': (imageForm.get('title').touched || imageForm.get('title').dirty ) && !imageForm.get('title').valid}">
+                    <span class="invalid-feedback">
+                        <span *ngIf="imageForm.get('title').errors?.required">
+                            Please enter image title
+                        </span>
+                        <span *ngIf="imageForm.get('title').errors?.minlength">
+                            Please enter title longer than 3 characters
+                        </span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Url</label>
+                    <input type="url" class="form-control" id="exampleInputPassword1" formControlName="url"
+                        [ngClass]="{'is-invalid': (imageForm.get('url').touched || imageForm.get('url').dirty ) && !imageForm.get('url').valid}">
+                    <span class="invalid-feedback">
+                        <span *ngIf="imageForm.get('title').errors?.required">
+                            Please enter image Url
+                        </span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">thumbnailUrl</label>
+                    <input type="url" class="form-control" id="exampleInputPassword1" formControlName="thumbnailUrl"
+                        [ngClass]="{'is-invalid': (imageForm.get('thumbnailUrl').touched || imageForm.get('thumbnailUrl').dirty ) && !imageForm.get('thumbnailUrl').valid}">
+                    <span class="invalid-feedback">
+                        <span *ngIf="imageForm.get('title').errors?.required">
+                            Please enter image thumbnailUrl
+                        </span>
+                    </span>
+                </div> <br>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <button class="btn btn-outline-primary me-1" type="submit" [disabled]="!imageForm.valid"
+                            (click)="activeModal.close('Close click')">
+                            Save
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary me-1"
+                            (click)="activeModal.close('Close click')">
+                            Cancel
+                        </button>
+                        <button class="btn btn-outline-warning float-end" type="button"
+                            (click)="activeModal.close('Close click');deleteImage()"
+                            [routerLink]="['/images']">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
