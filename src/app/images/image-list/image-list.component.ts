@@ -19,8 +19,6 @@ export class ImageListComponent implements OnInit, OnDestroy {
   page = 1;
   totalLength: number;
 
-  //selectedImage: IImage;
-
   images: IImage[] = [];
   image: IImage;
 
@@ -48,7 +46,6 @@ export class ImageListComponent implements OnInit, OnDestroy {
 
   selectImg(img: IImage) {
     this.image = img
-    console.log(img.title)
   }
   openModal() {
     const modalRef = this.mosalService.open(EditModalComponent);

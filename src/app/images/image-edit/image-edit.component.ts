@@ -6,7 +6,6 @@ import { IImage } from '../image-list/image';
 import { ImageService } from '../image-list/image.service';
 
 @Component({
-  selector: 'app-image-edit',
   templateUrl: './image-edit.component.html',
   styleUrls: ['./image-edit.component.css']
 })

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHandler, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, map, Observable, of, pipe, tap } from "rxjs";
+import { catchError, map, Observable, of, throwError, tap } from "rxjs";
 import { IImage } from "./image";
 
 @Injectable({
@@ -16,7 +16,7 @@ export class ImageService {
   getImages(): Observable<IImage[]> {
     return this.http.get<IImage[]>(this.urlImg).pipe(
       tap(data => console.log(JSON.stringify(data))),
-      //catchError(err)
+      catchError(this.handleError)
     );
   }
 
@@ -28,11 +28,8 @@ export class ImageService {
     return this.http.get<IImage>(`${this.urlImg}${id}`)
       .pipe(
         tap(data => console.log('getProduct: ' + JSON.stringify(data))),
-        //catchError()
+        catchError(this.handleError)
       )
-    // return this.getImages().pipe(
-    //   map((images:IImage[]) => images.find(x => x.id === id))
-    // )
   }
 
   updateImage(image : IImage): Observable<IImage> {
@@ -50,25 +47,42 @@ export class ImageService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post<IImage>(this.urlImg, image, {headers: headers})
     .pipe(
-      tap((data) => console.log("Updated image:"+ JSON.stringify(data)))
+      tap((data) => console.log("Updated image:"+ JSON.stringify(data))),
+      catchError(this.handleError)
     )
   }
   
-  deleteImage(id: number) : Observable<{}> {
-    const headers = new HttpHeaders({'Content-Type': 'application/json'})
+  deleteImage(id: number): Observable<{}> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
 
     const url = `${this.urlImg}/${id}`;
-    return this.http.delete<IImage>(url, {headers: headers});
+    return this.http.delete<IImage>(url, { headers: headers })
+      .pipe(
+        tap(data => console.log('deleteProduct: ' + id)),
+        catchError(this.handleError)
+      );
   }
 
-  private initalizeImage() : IImage {
-      return {
-       id: 0,
-       albumId: 0,
-       title: null,
-       url: null,
-       thumbnailUrl: null
-     }
-   }
+  private handleError(err: any): Observable<never> {
+    let errorMessage: string;
+    if (err.error instanceof ErrorEvent) {
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+      errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
+    }
+    console.error(err);
+    return throwError(() => err);
+  }
+
+
+  private initalizeImage(): IImage {
+    return {
+      id: 0,
+      albumId: 0,
+      title: null,
+      url: null,
+      thumbnailUrl: null
+    }
+  }
  
 }
